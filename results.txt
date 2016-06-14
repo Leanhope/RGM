@@ -1,6 +1,0 @@
-Edges to Cycle: 289
-Edges to Cycle: 289
-Edges to Cycle: 246
-Edges to Cycle: 121
-Edges to Cycle: 469
-Edges to Cycle: 6

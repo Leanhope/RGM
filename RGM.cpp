@@ -21,13 +21,13 @@ int main(int argc, char* argv[])
   typedef graph_traits<Graph>::vertex_descriptor Vertex;
   typedef graph_traits<Graph>::vertices_size_type VertexIndex;
 
-  int VERTEX_COUNT;
-  int EDGE_COUNT;
+  int VERTEX_COUNT = 100;
+  int EDGE_COUNT = 100;
 
-  std::cout << "Number of vertices: ";
-  std::cin >> VERTEX_COUNT;
-  std::cout << "Number of edges: " ;
-  std::cin >> EDGE_COUNT;  
+  // std::cout << "Number of vertices: ";
+  // std::cin >> VERTEX_COUNT;
+  // std::cout << "Number of edges: " ;
+  // std::cin >> EDGE_COUNT;
 
 		auto start = std::chrono::steady_clock::now();
 
@@ -52,35 +52,25 @@ int main(int argc, char* argv[])
 		boost::progress_display show_progress(EDGE_COUNT);
 		srand(time(NULL));
 
-		  for(int i = 0; i < EDGE_COUNT; i++)
-		  {
-		  	random::taus88 gen(rand());
-		  	random::taus88 gen1(rand());
-			  Vertex a = random_vertex(graph, gen);
-			  Vertex b = random_vertex(graph, gen1);
-			
-			  boost::tie(edge, flag) = add_edge(a, b, graph);
-			  if(ds.find_set(a) == ds.find_set(b))
-			  	{
-			  		std::cout << std::endl << "Cycle found after " << i << " edges." << std::endl;
-		  			std::ofstream outfile;
-					  outfile.open("results.txt", std::ios_base::app);
-					  outfile << "Edges to Cycle: " << i << std::endl;
-			  		break;
-			  	}
-		  	ds.union_set(a,b);
-		  	++show_progress;
-		    //std::cout << a << " - " << b << std::endl;
-		  	
-		  // 	if(components.size() == 1)
-		  // 	{
-		  // 		std::cout << "Graph fully connected after adding " << i << " edges." << std::endl;
-		  //     std::ofstream outfile;
-		  //     outfile.open("results.txt", std::ios_base::app);
-		  //     outfile << i << "\n"; 
-		  // 		break;
-		  // 	} 
-		  }
+		for(int i = 0; i < EDGE_COUNT; i++)
+		{
+			random::taus88 gen(rand());
+			random::taus88 gen1(rand());
+			Vertex a = random_vertex(graph, gen);
+			Vertex b = random_vertex(graph, gen1);
+
+			boost::tie(edge, flag) = add_edge(a, b, graph);
+			if(ds.find_set(a) == ds.find_set(b))
+			{
+				std::cout << std::endl << "Cycle found after " << i << " edges." << std::endl;
+				std::ofstream outfile;
+				outfile.open("results.txt", std::ios_base::app);
+				outfile << "Edges to Cycle: " << i << std::endl;
+				break;
+			}
+			ds.union_set(a,b);
+			++show_progress;
+		}
 		  
 		// BOOST_FOREACH(Vertex current_vertex, vertices(graph)) {
 		// std::cout << "representative[" << current_vertex << "] = " <<
@@ -109,4 +99,5 @@ int main(int argc, char* argv[])
 		//   outfile.open("results.txt", std::ios_base::app);
 		//   outfile << "V: " << VERTEX_COUNT << " E: " << EDGE_COUNT << " TiS " << diff.count() <<"\n"; 
 		return (0);
+
 }
