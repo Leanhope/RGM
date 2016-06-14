@@ -50,6 +50,7 @@ int main(int argc, char* argv[])
 		typedef component_index<VertexIndex> Components;
 
 		boost::progress_display show_progress(EDGE_COUNT);
+		srand(time(NULL));
 
 		  for(int i = 0; i < EDGE_COUNT; i++)
 		  {
