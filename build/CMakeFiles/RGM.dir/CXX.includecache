@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hans/16-SS-Randomized-Graphs/source code/version_3/RGM.cpp
+iostream
+-
+vector
+-
+boost/foreach.hpp
+-
+boost/graph/adjacency_list.hpp
+-
+boost/graph/graph_utility.hpp
+-
+boost/graph/incremental_components.hpp
+-
+boost/pending/disjoint_sets.hpp
+-
+boost/random/random_number_generator.hpp
+-
+boost/graph/random.hpp
+-
+boost/random.hpp
+-
+boost/progress.hpp
+-
+chrono
+-
+fstream
+-
+

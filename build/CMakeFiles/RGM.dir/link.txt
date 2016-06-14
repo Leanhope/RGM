@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=gnu++0x    CMakeFiles/RGM.dir/RGM.cpp.o  -o RGM -rdynamic 
