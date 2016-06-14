@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+project(RandomGraphs)
+set(CMAKE_CXX_FLAGS "-std=gnu++0x")
+
+add_executable(graphTest Vertex.cpp Graph.cpp main.cpp)
