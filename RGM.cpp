@@ -17,17 +17,19 @@ using namespace boost;
 
 int main(int argc, char* argv[]) 
 {  
-  typedef adjacency_list <vecS, vecS, undirectedS> Graph;
-  typedef graph_traits<Graph>::vertex_descriptor Vertex;
-  typedef graph_traits<Graph>::vertices_size_type VertexIndex;
+	for (int i = 0; i < 100; ++i)
+	{
+		typedef adjacency_list <vecS, vecS, undirectedS> Graph;
+		typedef graph_traits<Graph>::vertex_descriptor Vertex;
+		typedef graph_traits<Graph>::vertices_size_type VertexIndex;
 
-  int VERTEX_COUNT = 100;
-  int EDGE_COUNT = 100;
+		int VERTEX_COUNT = 100000;
+		int EDGE_COUNT = 200000;
 
-  // std::cout << "Number of vertices: ";
-  // std::cin >> VERTEX_COUNT;
-  // std::cout << "Number of edges: " ;
-  // std::cin >> EDGE_COUNT;
+		// std::cout << "Number of vertices: ";
+		// std::cin >> VERTEX_COUNT;
+		// std::cout << "Number of edges: " ;
+		// std::cin >> EDGE_COUNT;
 
 		auto start = std::chrono::steady_clock::now();
 
@@ -50,7 +52,7 @@ int main(int argc, char* argv[])
 		typedef component_index<VertexIndex> Components;
 
 		boost::progress_display show_progress(EDGE_COUNT);
-		srand(time(NULL));
+		srand(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count());
 
 		for(int i = 0; i < EDGE_COUNT; i++)
 		{
@@ -71,7 +73,7 @@ int main(int argc, char* argv[])
 			ds.union_set(a,b);
 			++show_progress;
 		}
-		  
+			
 		// BOOST_FOREACH(Vertex current_vertex, vertices(graph)) {
 		// std::cout << "representative[" << current_vertex << "] = " <<
 		// ds.find_set(current_vertex) << std::endl;
@@ -98,6 +100,7 @@ int main(int argc, char* argv[])
 		// std::ofstream outfile;
 		//   outfile.open("results.txt", std::ios_base::app);
 		//   outfile << "V: " << VERTEX_COUNT << " E: " << EDGE_COUNT << " TiS " << diff.count() <<"\n"; 
-		return (0);
-
+		
+	}
+	return (0);	
 }
