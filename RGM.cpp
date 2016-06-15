@@ -17,7 +17,12 @@ using namespace boost;
 
 int main(int argc, char* argv[]) 
 {  
-	for (int i = 0; i < 100; ++i)
+	std::vector<int> results;
+	
+	const int GRAPH_COUNT = 100;
+	boost::progress_display show_progress(GRAPH_COUNT);
+
+	for (int i = 0; i < GRAPH_COUNT; ++i)
 	{
 		typedef adjacency_list <vecS, vecS, undirectedS> Graph;
 		typedef graph_traits<Graph>::vertex_descriptor Vertex;
@@ -51,7 +56,6 @@ int main(int argc, char* argv[])
 
 		typedef component_index<VertexIndex> Components;
 
-		boost::progress_display show_progress(EDGE_COUNT);
 		srand(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count());
 
 		for(int i = 0; i < EDGE_COUNT; i++)
@@ -64,14 +68,12 @@ int main(int argc, char* argv[])
 			boost::tie(edge, flag) = add_edge(a, b, graph);
 			if(ds.find_set(a) == ds.find_set(b))
 			{
-				std::cout << std::endl << "Cycle found after " << i << " edges." << std::endl;
-				std::ofstream outfile;
-				outfile.open("results.txt", std::ios_base::app);
-				outfile << "Edges to Cycle: " << i << std::endl;
+				results.push_back(i);
+				//std::cout << std::endl << "Cycle found after " << i << " edges." << std::endl;
 				break;
 			}
 			ds.union_set(a,b);
-			++show_progress;
+			//++show_progress;
 		}
 			
 		// BOOST_FOREACH(Vertex current_vertex, vertices(graph)) {
@@ -79,7 +81,7 @@ int main(int argc, char* argv[])
 		// ds.find_set(current_vertex) << std::endl;
 		//}
 
-		std::cout << std::endl;
+		//std::cout << std::endl;
 
 		Components components(parent.begin(), parent.end());
 
@@ -94,13 +96,20 @@ int main(int argc, char* argv[])
 		//   std::cout << std::endl;
 		// }
 
-		std::chrono::duration<double> diff = std::chrono::steady_clock::now() - start;
+		//std::chrono::duration<double> diff = std::chrono::steady_clock::now() - start;
 
-		std::cout << diff.count() << " seconds needed." << std::endl;
+		//std::cout << diff.count() << " seconds needed." << std::endl;
 		// std::ofstream outfile;
 		//   outfile.open("results.txt", std::ios_base::app);
 		//   outfile << "V: " << VERTEX_COUNT << " E: " << EDGE_COUNT << " TiS " << diff.count() <<"\n"; 
 		
+		++show_progress;	
+	}
+	std::ofstream outfile;
+	outfile.open("results.txt", std::ios_base::app);
+	for (std::vector<int>::iterator i = results.begin(); i != results.end(); ++i)
+	{
+		outfile << "Edges to Cycle: " << *i << std::endl;	
 	}
 	return (0);	
 }
