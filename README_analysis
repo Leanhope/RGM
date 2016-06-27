@@ -1,0 +1,12 @@
+README FOR analysis.py
+++++++++++++++++++++++++++++++++++++++++
+Packages needed to be installed:
+
+numpy
+matplotlib
+
+++++++++++++++++++++++++++++++++++++++++
+
+Execute as: 'python analysis.py <inputfile.txt>'
+
+++++++++++++++++++++++++++++++++++++++++
